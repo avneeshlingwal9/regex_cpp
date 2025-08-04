@@ -11,10 +11,8 @@ bool isAlphaNum(char c){
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || isDigit(c) || (c == '_'); 
 
 }
-bool match_pattern(const std::string& input_line, const std::string& pattern , const std::string& flag) {
 
-
-    if(pattern == "\\d"){
+bool matchDigit(const std::string& input_line ){
 
         for(int i = 0 ; i < input_line.size(); i++){
 
@@ -25,10 +23,11 @@ bool match_pattern(const std::string& input_line, const std::string& pattern , c
             }
 
         }
+        return false; 
 
-    }
+}
 
-    else if(pattern == "\\w"){
+bool match_character_class(const std::string& input_line){
 
         for(int i = 0 ; i < input_line.size(); i++){
 
@@ -37,6 +36,52 @@ bool match_pattern(const std::string& input_line, const std::string& pattern , c
             }
 
         }
+
+        return false; 
+
+
+}
+
+bool match_positive_character_groups(const std::string& input_line , const std::string& pattern){
+
+    
+
+
+    for(int i = 1 ; i < pattern.size() - 1; i++){
+
+        if(input_line.find(pattern[i]) != std::string::npos){
+            return true;
+        }
+
+
+    }
+
+    return false; 
+    
+
+}
+bool match_pattern(const std::string& input_line, const std::string& pattern , const std::string& flag) {
+
+
+    if(pattern == "\\d"){
+
+        return matchDigit(input_line);
+
+
+
+    }
+
+    else if(pattern == "\\w"){
+
+        return match_character_class(input_line);
+
+    }
+
+    else if(pattern[0] == '['){
+
+        return match_positive_character_groups(input_line, pattern); 
+
+        
 
     }
 
