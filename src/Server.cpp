@@ -88,7 +88,7 @@ bool match_pattern(const std::string& input_line, const std::string& pattern , c
 
     else if(pattern[0] == '['){
 
-        bool flag = pattern[1] == '^'; 
+        bool flag = pattern[1] != '^'; 
 
 
         
