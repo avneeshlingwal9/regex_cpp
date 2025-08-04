@@ -42,21 +42,28 @@ bool match_character_class(const std::string& input_line){
 
 }
 
-bool match_positive_character_groups(const std::string& input_line , const std::string& pattern){
+bool match_positive_character_groups(const std::string& input_line , const std::string& pattern, bool flag){
 
     
 
+    int i = flag == true ? 1 : 2 ; 
 
-    for(int i = 1 ; i < pattern.size() - 1; i++){
+    bool exists = false; 
+
+    while(i < pattern.size() - 1){
 
         if(input_line.find(pattern[i]) != std::string::npos){
-            return true;
-        }
 
+            exists = true; 
+            break;
+
+        }
 
     }
 
-    return false; 
+    return flag & exists; 
+
+  
     
 
 }
@@ -79,13 +86,12 @@ bool match_pattern(const std::string& input_line, const std::string& pattern , c
     }
 
     else if(pattern[0] == '['){
-        if(pattern[1] == '^'){
 
-            return !match_positive_character_groups(input_line, pattern);
-        }
+        bool flag = pattern[1] == '^'; 
+
 
         
-        return match_positive_character_groups(input_line, pattern); 
+        return match_positive_character_groups(input_line, pattern , flag); 
 
         
 
