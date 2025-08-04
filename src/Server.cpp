@@ -58,6 +58,7 @@ bool match_positive_character_groups(const std::string& input_line , const std::
             break;
 
         }
+        i++;
 
     }
 
