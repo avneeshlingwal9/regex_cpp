@@ -71,6 +71,7 @@ bool match_pattern(const std::string& input_line, const std::string& pattern , c
 
     }
 
+
     else if(pattern == "\\w"){
 
         return match_character_class(input_line);
@@ -78,7 +79,12 @@ bool match_pattern(const std::string& input_line, const std::string& pattern , c
     }
 
     else if(pattern[0] == '['){
+        if(pattern[1] == '^'){
 
+            return !match_positive_character_groups(input_line, pattern);
+        }
+
+        
         return match_positive_character_groups(input_line, pattern); 
 
         
