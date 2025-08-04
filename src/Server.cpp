@@ -1,13 +1,35 @@
 #include <iostream>
 #include <string>
 
-bool match_pattern(const std::string& input_line, const std::string& pattern) {
-    if (pattern.length() == 1) {
+bool isDigit(char c){
+
+    return  c >= '1' && c <= '9'; 
+
+}
+bool match_pattern(const std::string& input_line, const std::string& pattern , const std::string& flag) {
+
+
+    if(pattern == "\\d"){
+
+        for(int i = 0 ; i < input_line.size(); i++){
+
+            if(isDigit(input_line[i])){
+
+                return true; 
+
+            }
+
+        }
+
+    }
+
+    else if (pattern.length() == 1) {
         return input_line.find(pattern) != std::string::npos;
     }
     else {
         throw std::runtime_error("Unhandled pattern " + pattern);
     }
+    return false; 
 }
 
 int main(int argc, char* argv[]) {
@@ -37,10 +59,15 @@ int main(int argc, char* argv[]) {
     std::getline(std::cin, input_line);
     
     try {
-        if (match_pattern(input_line, pattern)) {
+        if (match_pattern(input_line, pattern , flag)) {
+
             return 0;
-        } else {
+
+        } 
+        else {
+
             return 1;
+
         }
     } catch (const std::runtime_error& e) {
         std::cerr << e.what() << std::endl;
