@@ -3,7 +3,12 @@
 
 bool isDigit(char c){
 
-    return  c >= '1' && c <= '9'; 
+    return  c >= '0' && c <= '9'; 
+
+}
+bool isAlphaNum(char c){
+
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || isDigit(c) || (c == '_'); 
 
 }
 bool match_pattern(const std::string& input_line, const std::string& pattern , const std::string& flag) {
@@ -17,6 +22,18 @@ bool match_pattern(const std::string& input_line, const std::string& pattern , c
 
                 return true; 
 
+            }
+
+        }
+
+    }
+
+    else if(pattern == "\\w"){
+
+        for(int i = 0 ; i < input_line.size(); i++){
+
+            if(isAlphaNum(input_line[i])){
+                return true; 
             }
 
         }
